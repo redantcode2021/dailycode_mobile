@@ -1,0 +1,20 @@
+{
+  "files.exclude": {
+    "food_ordering_app/.dart_tool": true,
+    ".vscode": true,
+    "food_ordering_app/.idea": true,
+    "food_ordering_app/android": true,
+    "food_ordering_app/ios": true,
+    "food_ordering_app/linux": true,
+    "food_ordering_app/macos": true,
+    "food_ordering_app/web": true,
+    "food_ordering_app/windows": true,
+    "food_ordering_app/.gitignore": true,
+    "food_ordering_app/.metadata": true,
+    "food_ordering_app/.packages": true,
+    "food_ordering_app/analysis_options.yaml": true,
+    "food_ordering_app/food_ordering_app.iml": true,
+    "food_ordering_app/pubspec.lock": true,
+    "food_ordering_app": true
+  }
+}
