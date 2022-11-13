@@ -18,6 +18,13 @@ export default class FakeRepository implements IAuthRepository {
       password: "",
       type: "google",
     },
+    {
+      email: "baller@gg.com",
+      id: "1234",
+      name: "Ken",
+      password: "pass",
+      type: "email",
+    },
   ];
 
   public async find(email: string): Promise<User> {
