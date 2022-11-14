@@ -12,11 +12,11 @@ describe("AuthRouter", () => {
   let app: express.Application;
 
   const user = {
-    email: "test@gmail.com",
+    email: "tester@gmail.com",
     id: "1556",
     name: "Ren",
     password: "",
-    type: "google",
+    auth_type: "google",
   };
 
   beforeEach(() => {
@@ -34,13 +34,20 @@ describe("AuthRouter", () => {
   });
 
   it("should return 404 when user is not found", async () => {
-    await request(app).post("/auth/signin").send({}).expect(404);
+    const user = {
+      email: "wrongemail@gg.com",
+      id: "1234",
+      name: "Ken",
+      password: "pass123",
+      auth_type: "email",
+    };
+    await request(app).post("/auth/signin").send(user).expect(404);
   });
 
   it("should return 200 and token when user is found", async () => {
     await request(app)
       .post("/auth/signin")
-      .send({ password: user.password, email: user.email })
+      .send(user)
       .set("Accept", "application/json")
       .expect("Content-type", /json/)
       .expect(200)

@@ -1,5 +1,4 @@
-import { NextFunction } from "connect";
-import { Request, Response } from "express";
+import { Request, Response, NextFunction } from "express";
 import { body, validationResult } from "express-validator";
 
 export const signupValidationRules = () => {
@@ -8,8 +7,22 @@ export const signupValidationRules = () => {
     body("email", "Invalid email").notEmpty().isEmail().normalizeEmail(),
     body("auth_type", "Auth type is required").notEmpty(),
     body("password", "Password is required (min 5 characters)")
-      .notEmpty()
       .if(body("auth_type").equals("email"))
+      .notEmpty()
+      .isLength({ min: 5 }),
+  ];
+};
+
+export const signinValidationRules = () => {
+  return [
+    body("name", "Name is required.")
+      .if(body("auth_type").not().equals("email"))
+      .notEmpty(),
+    body("email", "Invalid email").notEmpty().isEmail().normalizeEmail(),
+    body("auth_type", "Auth type is required").notEmpty(),
+    body("password", "Password is required (min 5 characters)")
+      .if(body("auth_type").equals("email"))
+      .notEmpty()
       .isLength({ min: 5 }),
   ];
 };

@@ -12,7 +12,7 @@ export default class FakeRepository implements IAuthRepository {
       type: "email",
     },
     {
-      email: "test@gmail.com",
+      email: "tester@gmail.com",
       id: "1556",
       name: "Ren",
       password: "",

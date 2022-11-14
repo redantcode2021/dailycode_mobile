@@ -5,7 +5,11 @@ import * as express from "express";
 import AuthController from "./AuthController";
 import SignInUseCase from "../usecases/SignInUseCase";
 import SignUpUseCase from "../usecases/SignUpUseCase";
-import { signupValidationRules, validate } from "../helpers/Validators";
+import {
+  signinValidationRules,
+  signupValidationRules,
+  validate,
+} from "../helpers/Validators";
 
 export default class AuthRouter {
   public static configure(
@@ -19,7 +23,13 @@ export default class AuthRouter {
       tokenService,
       passwordService
     );
-    router.post("/signin", (req, res) => controller.signin(req, res));
+    router.post(
+      "/signin",
+      signinValidationRules(),
+      validate,
+      (req: express.Request, res: express.Response) =>
+        controller.signin(req, res)
+    );
     router.post(
       "/signup",
       signupValidationRules(),

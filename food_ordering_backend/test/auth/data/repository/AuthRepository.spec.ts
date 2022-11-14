@@ -53,8 +53,8 @@ describe("AuthRepository", () => {
     const result = await sut.add(
       user.name,
       user.email,
-      user.password,
-      user.type
+      user.type,
+      user.password
     );
 
     // assert
