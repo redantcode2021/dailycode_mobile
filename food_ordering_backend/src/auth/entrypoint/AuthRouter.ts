@@ -10,17 +10,23 @@ import {
   signupValidationRules,
   validate,
 } from "../helpers/Validators";
+import SignOutUseCase from "../usecases/SignOutUseCase";
+import ITokenStore from "../services/ITokenStore";
+import TokenValidator from "../helpers/TokenValidator";
 
 export default class AuthRouter {
   public static configure(
     authRepository: IAuthRepository,
     tokenService: ITokenService,
+    tokenStore: ITokenStore,
+    tokenValidator: TokenValidator,
     passwordService: IPasswordService
   ): express.Router {
     const router = express.Router();
     let controller = AuthRouter.composeController(
       authRepository,
       tokenService,
+      tokenStore,
       passwordService
     );
     router.post(
@@ -37,19 +43,29 @@ export default class AuthRouter {
       (req: express.Request, res: express.Response) =>
         controller.signup(req, res)
     );
+    router.post(
+      "/signout",
+      (res, req, next) => tokenValidator.validate(res, req, next),
+      (req: express.Request, res: express.Response) =>
+        controller.signup(req, res)
+    );
+
     return router;
   }
 
   private static composeController(
     authRepository: IAuthRepository,
     tokenService: ITokenService,
+    tokenStore: ITokenStore,
     passwordService: IPasswordService
   ): AuthController {
     const singinUseCase = new SignInUseCase(authRepository, passwordService);
     const signUpUseCase = new SignUpUseCase(authRepository, passwordService);
+    const signOutUseCase = new SignOutUseCase(tokenStore);
     const controller = new AuthController(
       singinUseCase,
       signUpUseCase,
+      signOutUseCase,
       tokenService
     );
     return controller;
