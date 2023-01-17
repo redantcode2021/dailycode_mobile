@@ -49,7 +49,7 @@ class SupabaseDatabaseClient {
           .eq('id', _supabaseClient.auth.currentUser?.id)
           .single();
 
-      final data = response.data as Map<String, dynamic>;
+      final data = response as Map<String, dynamic>;
       return SupabaseUser.fromJson(data);
     } catch (error, stackTrace) {
       Error.throwWithStackTrace(

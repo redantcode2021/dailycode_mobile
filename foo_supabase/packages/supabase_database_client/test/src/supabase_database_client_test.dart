@@ -17,8 +17,7 @@ class MockPostgrestFilterBuilder extends Mock
 class MockPostgrestTransformBuilder extends Mock
     implements PostgrestTransformBuilder<dynamic> {}
 
-class MockPostgrestBuilder extends Mock
-    implements PostgrestBuilder<dynamic, dynamic> {}
+class MockPostgrestBuilder extends Mock implements PostgrestBuilder<dynamic> {}
 
 class FakeUser extends Fake implements User {
   @override
