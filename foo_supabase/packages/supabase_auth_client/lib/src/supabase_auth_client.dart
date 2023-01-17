@@ -1,3 +1,5 @@
+// ignore_for_file: public_member_api_docs
+
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 /// {@templage supabase_auth_exception}
@@ -15,7 +17,6 @@ abstract class SupabaseAuthException implements Exception {
 /// Thrown during the sign in process if a failure occurs.
 /// {@endtemplate}
 class SupabaseSignInFailure extends SupabaseAuthException {
-  // ignore: public_member_api_docs
   const SupabaseSignInFailure(super.error);
 }
 
@@ -23,7 +24,6 @@ class SupabaseSignInFailure extends SupabaseAuthException {
 /// Thrown during the sign out process if a failure occurs.
 /// {@endtemplate}
 class SupabaseSignOutFailure extends SupabaseAuthException {
-  // ignore: public_member_api_docs
   const SupabaseSignOutFailure(super.error);
 }
 
