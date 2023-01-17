@@ -1,22 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:foo_supabase/counter/counter.dart';
-import 'package:foo_supabase/l10n/l10n.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:foo_supabase/app/bloc/app_bloc.dart';
+import 'package:foo_supabase/app/view/app_view.dart';
+import 'package:user_repository/user_repository.dart';
 
 class App extends StatelessWidget {
-  const App({super.key});
+  const App({super.key, required this.userRepository});
 
+  final UserRepository userRepository;
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: ThemeData(
-        appBarTheme: const AppBarTheme(color: Color(0xFF13B9FF)),
-        colorScheme: ColorScheme.fromSwatch(
-          accentColor: const Color(0xFF13B9FF),
-        ),
+    return RepositoryProvider.value(
+      value: userRepository,
+      child: BlocProvider(
+        create: (context) => AppBloc(),
+        child: const AppView(),
       ),
-      localizationsDelegates: AppLocalizations.localizationsDelegates,
-      supportedLocales: AppLocalizations.supportedLocales,
-      home: const CounterPage(),
     );
   }
 }
