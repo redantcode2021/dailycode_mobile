@@ -47,7 +47,8 @@ class SupabaseDatabaseClient {
           .from('account')
           .select()
           .eq('id', _supabaseClient.auth.currentUser?.id)
-          .single();
+          .single()
+          .execute();
 
       final data = response as Map<String, dynamic>;
       return SupabaseUser.fromJson(data);
@@ -68,7 +69,10 @@ class SupabaseDatabaseClient {
         companyName: user.companyName,
       );
 
-      await _supabaseClient.from('account').upsert(supabaseUser.toJson());
+      await _supabaseClient
+          .from('account')
+          .upsert(supabaseUser.toJson())
+          .execute();
     } catch (error, stackTrace) {
       Error.throwWithStackTrace(
         SupabaseUpdateUserFailure(error),

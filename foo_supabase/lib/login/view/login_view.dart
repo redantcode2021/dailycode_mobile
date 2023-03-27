@@ -1,3 +1,4 @@
+import 'package:email_launcher/email_launcher.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -33,7 +34,26 @@ class _LoginViewState extends State<LoginView> {
   }
 }
 
-class OpenEmailButton {}
+class OpenEmailButton extends StatelessWidget {
+  const OpenEmailButton({
+    EmailLauncher? emailLauncher,
+    super.key,
+  }) : _emailLauncher = emailLauncher ?? const EmailLauncher();
+  final EmailLauncher? _emailLauncher;
+
+  @override
+  Widget build(BuildContext context) {
+    final state = context.watch<LoginBloc>().state;
+
+    return OutlinedButton(
+      key: const Key('loginView_openEmail_button'),
+      onPressed: state.status.isInProgress || !state.valid
+          ? null
+          : _emailLauncher!.launchEmailApp,
+      child: const Text('Open Email App'),
+    );
+  }
+}
 
 class _SendEmailButton extends StatelessWidget {
   const _SendEmailButton();

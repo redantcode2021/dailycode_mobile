@@ -12,6 +12,7 @@ part 'login_state.dart';
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
   LoginBloc(this._userRepository) : super(const LoginState()) {
     on<LoginSubmitted>(_onSignIn);
+    on<LoginEmailChanged>(_onEmailChanged);
   }
 
   final UserRepository _userRepository;
